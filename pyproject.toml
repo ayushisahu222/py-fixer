@@ -1,0 +1,56 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "py-fixer"
+version = "0.1.0"
+description = "Run Python scripts with AI-powered error explanations"
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "Ayushi Sahu", email = "ayushisahu222@gmail.com" }]
+requires-python = ">=3.10"
+keywords = ["debugging", "ai", "claude", "errors", "developer-tools"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Debuggers",
+    "Topic :: Utilities",
+]
+dependencies = [
+    "anthropic>=0.40.0",
+    "google-genai>=1.0.0",
+    "click>=8.0",
+    "keyring>=24.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.urls]
+Homepage = "https://github.com/ayushisahu222/bug-py"
+Issues = "https://github.com/ayushisahu222/bug-py/issues"
+
+[project.scripts]
+pyfixer = "bug_py.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/bug_py"]
+
+[tool.hatch.build.targets.wheel.force-include]
+"src/bug_py/data/bug-py-vscode-0.1.0.vsix" = "bug_py/data/bug-py-vscode-0.1.0.vsix"
+"src/bug_py/data/__init__.py" = "bug_py/data/__init__.py"
+
+[tool.hatch.build.targets.sdist]
+exclude = [
+    "demo.py",
+    "*.suggested.py",
+    ".pyfixer-backup/",
+]

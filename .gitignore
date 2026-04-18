@@ -1,0 +1,29 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+dist/
+build/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg
+.pyfixer-backup/
+
+# secrets — never commit API keys or recovery codes
+.env
+.env.*
+PyPI-Recovery-Codes-*.txt
+TestPyPI-Recovery-Codes-*.txt
+
+# temp diff files from the fix preview
+*.suggested.py
+
+# phase-3 journal (contains tracebacks + AI responses)
+pyfixer-journal.db
+
+# test folder
+tests/
