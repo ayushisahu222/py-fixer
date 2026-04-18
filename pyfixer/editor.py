@@ -61,15 +61,8 @@ def propose_fix(script_path: str, response_text: str) -> None:
 def _show_diff_in_vscode(path: Path, suggested_code: str, code_cli: str) -> None:
     """Write suggested fix to a temp file, open VS Code diff, then ask to apply."""
     suffix = path.suffix or ".py"
-    with tempfile.NamedTemporaryFile(
-        mode="w",
-        suffix=f".suggested{suffix}",
-        prefix=path.stem + "_",
-        delete=False,
-        encoding="utf-8",
-    ) as tmp:
-        tmp.write(suggested_code + "\n")
-        tmp_path = Path(tmp.name)
+    tmp_path = Path(tempfile.gettempdir()) / f"{path.stem}.suggested{suffix}"
+    tmp_path.write_text(suggested_code + "\n", encoding="utf-8")
 
     subprocess.Popen([
         code_cli,
@@ -77,11 +70,6 @@ def _show_diff_in_vscode(path: Path, suggested_code: str, code_cli: str) -> None
         str(path.resolve()),
         str(tmp_path),
     ])
-    console.print(
-        f"[bold cyan]Diff opened in VS Code[/bold cyan] — "
-        f"[green]green = added[/green], [red]red = removed[/red]"
-    )
-
     if click.confirm("\nApply this fix?", default=False):
         backup_dir = path.parent / ".pyfixer-backup"
         backup_dir.mkdir(exist_ok=True)

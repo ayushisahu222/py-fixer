@@ -1,49 +1,88 @@
 # pyfixer
 
-`pyfixer` is a drop-in replacement for `python` that runs your scripts normally but, when an error occurs, prints the real traceback and then uses AI to give you a plain-language explanation of what went wrong, why it happened, and how to fix it — all directly in your terminal.
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![PyPI](https://img.shields.io/badge/pypi-0.1.0-blue)](https://pypi.org/project/py-fixer/)
+[![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+
+A drop-in replacement for `python` that runs your scripts normally — but when an error occurs, uses AI to explain what went wrong and suggest a fix, right in your terminal.
 
 Supports **Anthropic Claude** and **Google Gemini**. The provider is detected automatically from your API key.
 
-## Installation
+---
+
+## ✨ Key Features
+
+- **AI Error Explanations**: Get plain-English explanations of tracebacks powered by Claude or Gemini.
+- **VS Code Diff View**: See suggested fixes as a side-by-side diff before applying anything.
+- **One-Click Apply**: Accept or discard fixes interactively — originals are backed up automatically.
+- **Multi-Provider**: Works with Anthropic (`sk-ant-...`) and Google Gemini (`AIza...`) keys.
+- **No lock-in**: Use `--no-explain` to skip AI entirely and behave like plain `python`.
+
+---
+
+## 🚀 Installation
 
 ```bash
-pip install pyfixer
+pip install py-fixer
 ```
 
-## Usage
+---
 
-### Store your API key (once)
+## 🏁 Quick Start
+
+### 1. Store your API key
 
 ```bash
 pyfixer login
 ```
 
-Paste your Anthropic (`sk-ant-...`) or Gemini (`AIza...`) API key when prompted. The key is stored securely in your system keyring — never on disk or in any file.
+Paste your API key when prompted — you'll also choose a model. Credentials are saved to `~/.config/pyfixer/config.json` (mode 600).
 
-### Run a script
+### 2. Run a script
 
 ```bash
 pyfixer run script.py
-pyfixer run script.py arg1 arg2     # extra args are forwarded to the script
-pyfixer run script.py --no-explain  # show traceback only, skip AI
 ```
 
 When an error occurs, pyfixer:
 1. Prints the full traceback
 2. Explains the error in plain English
-3. Suggests a fix and opens a **VS Code diff** showing exactly what changed (green = added, red = removed)
-4. Asks if you want to apply the fix directly to your file
-
-### Change model
+3. Opens a **VS Code diff** showing the suggested fix
+4. Asks whether to apply it — original is backed up to `.pyfixer-backup/`
 
 ```bash
-pyfixer set-model
+pyfixer run script.py arg1 arg2     # forward args to your script
+pyfixer run script.py --no-explain  # traceback only, no AI
 ```
 
-### Remove your stored API key
+---
 
-```bash
-pyfixer logout
-```
+## 📚 Commands
 
+| Command | Description |
+|---|---|
+| `pyfixer login` | Save your API key and choose a model |
+| `pyfixer logout` | Remove your stored API key and model |
+| `pyfixer run <script>` | Run a script with AI error explanations |
+| `pyfixer set-model` | Switch models without re-entering your key |
+| `pyfixer install-extension` | Install the VS Code extension for inline fixes |
 
+---
+
+## Requirements
+
+- Python 3.10+
+- An Anthropic or Google Gemini API key
+- VS Code (optional, for diff view)
+
+---
+
+## 🤝 Contributing
+
+Bug reports and pull requests are welcome! Please open an issue at [github.com/ayushisahu222/py-fixer/issues](https://github.com/ayushisahu222/py-fixer/issues).
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.

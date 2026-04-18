@@ -1,16 +1,12 @@
-"""Keyring-backed storage for the API key and model preference."""
+"""File-based storage for the API key and model preference."""
 
-# stdlib
-# (none)
+import json
+import os
+from pathlib import Path
 
-# third-party
-import keyring
+_CONFIG_DIR = Path.home() / ".config" / "pyfixer"
+_CONFIG_FILE = _CONFIG_DIR / "config.json"
 
-SERVICE_NAME = "pyfixer"
-USERNAME = "anthropic_api_key"
-MODEL_USERNAME = "selected_model"
-
-# Available models per provider — update as providers release new versions
 MODEL_OPTIONS: dict[str, list[tuple[str, str]]] = {
     "anthropic": [
         ("claude-opus-4-7",           "Opus 4.7 (latest)    — most capable"),
@@ -20,9 +16,7 @@ MODEL_OPTIONS: dict[str, list[tuple[str, str]]] = {
         ("claude-sonnet-4-5",         "Sonnet 4.5           — balanced"),
     ],
     "gemini": [
-        ("gemini-3-pro",          "Gemini 3 Pro          — most capable"),
-        ("gemini-3-flash",        "Gemini 3 Flash        — fast"),
-        ("gemini-2.5-pro",        "Gemini 2.5 Pro        — balanced (recommended)"),
+        ("gemini-2.5-pro",        "Gemini 2.5 Pro        — most capable (recommended)"),
         ("gemini-2.5-flash",      "Gemini 2.5 Flash      — fast & cheap"),
         ("gemini-2.5-flash-lite", "Gemini 2.5 Flash Lite — fastest / cheapest"),
     ],
@@ -34,34 +28,46 @@ DEFAULT_MODEL: dict[str, str] = {
 }
 
 
+def _load() -> dict:
+    try:
+        return json.loads(_CONFIG_FILE.read_text())
+    except (FileNotFoundError, json.JSONDecodeError):
+        return {}
+
+
+def _save(data: dict) -> None:
+    _CONFIG_DIR.mkdir(parents=True, exist_ok=True)
+    _CONFIG_FILE.write_text(json.dumps(data, indent=2))
+    os.chmod(_CONFIG_FILE, 0o600)
+
+
 def get_api_key() -> str | None:
-    """Return the stored API key, or None if not set."""
-    return keyring.get_password(SERVICE_NAME, USERNAME)
+    return _load().get("api_key") or None
 
 
 def set_api_key(key: str) -> None:
-    """Persist the API key in the system keyring."""
-    keyring.set_password(SERVICE_NAME, USERNAME, key)
+    data = _load()
+    data["api_key"] = key
+    _save(data)
 
 
 def delete_api_key() -> None:
-    """Remove the API key from the system keyring."""
-    keyring.delete_password(SERVICE_NAME, USERNAME)
+    data = _load()
+    data.pop("api_key", None)
+    _save(data)
 
 
 def get_model() -> str | None:
-    """Return the stored model ID, or None if not set."""
-    return keyring.get_password(SERVICE_NAME, MODEL_USERNAME)
+    return _load().get("model") or None
 
 
 def set_model(model: str) -> None:
-    """Persist the chosen model ID in the system keyring."""
-    keyring.set_password(SERVICE_NAME, MODEL_USERNAME, model)
+    data = _load()
+    data["model"] = model
+    _save(data)
 
 
 def delete_model() -> None:
-    """Remove the stored model preference from the system keyring."""
-    try:
-        keyring.delete_password(SERVICE_NAME, MODEL_USERNAME)
-    except Exception:
-        pass
+    data = _load()
+    data.pop("model", None)
+    _save(data)

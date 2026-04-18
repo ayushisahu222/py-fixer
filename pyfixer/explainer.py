@@ -9,8 +9,8 @@ from rich.console import Console
 from rich.markdown import Markdown
 
 # local
-from bug_py import config
-from bug_py.prompts import EXPLAIN_PROMPT_TEMPLATE
+from pyfixer import config
+from pyfixer.prompts import EXPLAIN_PROMPT_TEMPLATE
 
 _MAX_TOKENS = 800
 
@@ -77,7 +77,7 @@ def explain_error(script_path: str, exc_info: tuple, api_key: str) -> None:
     console.rule(f"[bold cyan]— AI explanation ({provider} / {model}) —[/bold cyan]")
     console.print(Markdown(response_text))
 
-    from bug_py import editor
+    from pyfixer import editor
     editor.propose_fix(script_path, response_text)
 
     # TODO(phase-3): log this error + explanation to the journal

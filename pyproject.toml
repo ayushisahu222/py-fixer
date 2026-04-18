@@ -4,13 +4,13 @@ build-backend = "hatchling.build"
 
 [project]
 name = "py-fixer"
-version = "0.1.0"
+version = "1.0.0"
 description = "Run Python scripts with AI-powered error explanations"
 readme = "README.md"
 license = { text = "MIT" }
 authors = [{ name = "Ayushi Sahu", email = "ayushisahu222@gmail.com" }]
 requires-python = ">=3.10"
-keywords = ["debugging", "ai", "claude", "errors", "developer-tools"]
+keywords = ["debugging", "ai", "errors", "developer-tools"]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Environment :: Console",
@@ -27,7 +27,6 @@ dependencies = [
     "anthropic>=0.40.0",
     "google-genai>=1.0.0",
     "click>=8.0",
-    "keyring>=24.0",
     "rich>=13.0",
 ]
 
@@ -35,18 +34,15 @@ dependencies = [
 dev = ["pytest"]
 
 [project.urls]
-Homepage = "https://github.com/ayushisahu222/bug-py"
-Issues = "https://github.com/ayushisahu222/bug-py/issues"
+Homepage = "https://github.com/ayushisahu222/py-fixer"
+Issues = "https://github.com/ayushisahu222/py-fixer/issues"
 
 [project.scripts]
-pyfixer = "bug_py.cli:main"
+pyfixer = "pyfixer.cli:main"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/bug_py"]
+packages = ["pyfixer"]
 
-[tool.hatch.build.targets.wheel.force-include]
-"src/bug_py/data/bug-py-vscode-0.1.0.vsix" = "bug_py/data/bug-py-vscode-0.1.0.vsix"
-"src/bug_py/data/__init__.py" = "bug_py/data/__init__.py"
 
 [tool.hatch.build.targets.sdist]
 exclude = [

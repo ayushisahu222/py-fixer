@@ -7,7 +7,7 @@ import traceback
 from pathlib import Path
 
 # local
-from bug_py import explainer
+from pyfixer import explainer
 
 
 def run_script(

@@ -8,11 +8,10 @@ import sys
 
 # third-party
 import click
-from keyring.errors import PasswordDeleteError
 
 # local
-from bug_py import config, runner
-from bug_py.explainer import _detect_provider
+from pyfixer import config, runner
+from pyfixer.explainer import _detect_provider
 
 
 def _pick_model(provider: str) -> str:
@@ -59,7 +58,7 @@ def login() -> None:
         config.set_api_key(key.strip())
         click.echo("API key saved.")
     except Exception:
-        click.echo("Error: could not save the API key. Check your keyring configuration.", err=True)
+        click.echo("Error: could not save the API key.", err=True)
         sys.exit(1)
 
     provider = _detect_provider(key.strip())
@@ -71,13 +70,11 @@ def login() -> None:
 
 @main.command()
 def logout() -> None:
-    """Remove the stored API key from the system keyring."""
+    """Remove the stored API key."""
     try:
         config.delete_api_key()
         config.delete_model()
         click.echo("API key and model preference removed.")
-    except PasswordDeleteError:
-        click.echo("No API key was stored.", err=True)
     except Exception:
         click.echo("Error: could not remove the API key.", err=True)
         sys.exit(1)
@@ -107,7 +104,7 @@ def install_extension() -> None:
         sys.exit(1)
 
     try:
-        ref = importlib.resources.files("bug_py.data").joinpath("pyfixer-vscode-0.1.0.vsix")
+        ref = importlib.resources.files("pyfixer.data").joinpath("pyfixer-vscode-0.1.0.vsix")
         with importlib.resources.as_file(ref) as vsix_path:
             result = subprocess.run(
                 [code, "--install-extension", str(vsix_path)],
