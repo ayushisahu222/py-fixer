@@ -17,7 +17,7 @@ def run_script(
     explain: bool = True,
 ) -> None:
     """Run a Python script in __main__ context, catching and explaining errors."""
-    path = Path(script_path)
+    path = Path(script_path).resolve()
 
     # Make the user's script see the right sys.argv
     sys.argv = [str(path)] + script_args

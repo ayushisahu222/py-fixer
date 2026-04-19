@@ -11,7 +11,6 @@ MODEL_OPTIONS: dict[str, list[tuple[str, str]]] = {
     "anthropic": [
         ("claude-opus-4-7",           "Opus 4.7 (latest)"),
         ("claude-sonnet-4-6",         "Sonnet 4.6 "),
-        ("claude-haiku-4-5",         "Haiku 4.5"),
     ],
     "gemini": [
         ("gemini-2.5-pro",        "Gemini 2.5 Pro"),
@@ -21,7 +20,6 @@ MODEL_OPTIONS: dict[str, list[tuple[str, str]]] = {
     "openai": [
         ("gpt-5.4",      "GPT-5.4"),
         ("gpt-5.4-mini", "GPT-5.4 mini"),
-        ("gpt-5.3-codex", "GPT-5.3 Codex"),
     ],
 }
 

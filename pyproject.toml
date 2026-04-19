@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "py-fixer"
-version = "1.0.0"
+version = "1.0.1"
 description = "Run Python scripts with AI-powered error explanations"
 readme = "README.md"
 license = { text = "MIT" }
