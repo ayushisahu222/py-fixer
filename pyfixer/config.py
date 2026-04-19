@@ -9,22 +9,26 @@ _CONFIG_FILE = _CONFIG_DIR / "config.json"
 
 MODEL_OPTIONS: dict[str, list[tuple[str, str]]] = {
     "anthropic": [
-        ("claude-opus-4-7",           "Opus 4.7 (latest)    — most capable"),
-        ("claude-opus-4-6",           "Opus 4.6             — most capable"),
-        ("claude-opus-4-5",           "Opus 4.5             — most capable"),
-        ("claude-sonnet-4-6",         "Sonnet 4.6           — balanced (recommended)"),
-        ("claude-sonnet-4-5",         "Sonnet 4.5           — balanced"),
+        ("claude-opus-4-7",           "Opus 4.7 (latest)"),
+        ("claude-sonnet-4-6",         "Sonnet 4.6 "),
+        ("claude-haiku-4-5",         "Haiku 4.5"),
     ],
     "gemini": [
-        ("gemini-2.5-pro",        "Gemini 2.5 Pro        — most capable (recommended)"),
-        ("gemini-2.5-flash",      "Gemini 2.5 Flash      — fast & cheap"),
-        ("gemini-2.5-flash-lite", "Gemini 2.5 Flash Lite — fastest / cheapest"),
+        ("gemini-2.5-pro",        "Gemini 2.5 Pro"),
+        ("gemini-2.5-flash",      "Gemini 2.5 Flash"),
+        ("gemini-2.5-flash-lite", "Gemini 2.5 Flash Lite"),
+    ],
+    "openai": [
+        ("gpt-5.4",      "GPT-5.4"),
+        ("gpt-5.4-mini", "GPT-5.4 mini"),
+        ("gpt-5.3-codex", "GPT-5.3 Codex"),
     ],
 }
 
 DEFAULT_MODEL: dict[str, str] = {
-    "anthropic": "claude-sonnet-4-6",
+    "anthropic": "claude-sonnet-4-7",
     "gemini":    "gemini-2.5-pro",
+    "openai":    "gpt-5.4",
 }
 
 

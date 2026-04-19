@@ -18,11 +18,12 @@ console = Console()
 
 
 def _detect_provider(api_key: str) -> str:
-    """Detect AI provider from the API key prefix."""
     if api_key.startswith("sk-ant-"):
         return "anthropic"
     if api_key.startswith("AIza"):
         return "gemini"
+    if api_key.startswith("sk-"):
+        return "openai"
     return "gemini"  # default fallback
 
 
@@ -39,11 +40,21 @@ def _call_anthropic(prompt: str, api_key: str, model: str) -> str:
 
 
 def _call_gemini(prompt: str, api_key: str, model: str) -> str:
-    """Send prompt to Google Gemini and return the response text."""
     from google import genai
     client = genai.Client(api_key=api_key)
     response = client.models.generate_content(model=model, contents=prompt)
     return response.text
+
+
+def _call_openai(prompt: str, api_key: str, model: str) -> str:
+    from openai import OpenAI
+    client = OpenAI(api_key=api_key)
+    response = client.chat.completions.create(
+        model=model,
+        max_tokens=_MAX_TOKENS,
+        messages=[{"role": "user", "content": prompt}],
+    )
+    return response.choices[0].message.content
 
 
 def explain_error(script_path: str, exc_info: tuple, api_key: str) -> None:
@@ -67,6 +78,8 @@ def explain_error(script_path: str, exc_info: tuple, api_key: str) -> None:
     try:
         if provider == "anthropic":
             response_text = _call_anthropic(prompt, api_key, model)
+        elif provider == "openai":
+            response_text = _call_openai(prompt, api_key, model)
         else:
             response_text = _call_gemini(prompt, api_key, model)
     except Exception as e:  # noqa: BLE001

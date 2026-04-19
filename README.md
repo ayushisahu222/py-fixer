@@ -6,21 +6,21 @@
 
 A drop-in replacement for `python` that runs your scripts normally — but when an error occurs, uses AI to explain what went wrong and suggest a fix, right in your terminal.
 
-Supports **Anthropic Claude** and **Google Gemini**. The provider is detected automatically from your API key.
+Supports **Anthropic Claude**, **Google Gemini**, and **OpenAI**. The provider is detected automatically from your API key.
 
 ---
 
-## ✨ Key Features
+## Key Features
 
-- **AI Error Explanations**: Get plain-English explanations of tracebacks powered by Claude or Gemini.
+- **AI Error Explanations**: Get plain-English explanations of tracebacks powered by Claude, Gemini, or OpenAI.
 - **VS Code Diff View**: See suggested fixes as a side-by-side diff before applying anything.
 - **One-Click Apply**: Accept or discard fixes interactively — originals are backed up automatically.
-- **Multi-Provider**: Works with Anthropic (`sk-ant-...`) and Google Gemini (`AIza...`) keys.
+- **Multi-Provider**: Works with Anthropic (`sk-ant-...`), Google Gemini (`AIza...`), and OpenAI (`sk-...`) keys.
 - **No lock-in**: Use `--no-explain` to skip AI entirely and behave like plain `python`.
 
 ---
 
-## 🚀 Installation
+## Installation
 
 ```bash
 pip install py-fixer
@@ -28,7 +28,7 @@ pip install py-fixer
 
 ---
 
-## 🏁 Quick Start
+## Quick Start
 
 ### 1. Store your API key
 
@@ -57,7 +57,7 @@ pyfixer run script.py --no-explain  # traceback only, no AI
 
 ---
 
-## 📚 Commands
+## Commands
 
 | Command | Description |
 |---|---|
@@ -72,17 +72,17 @@ pyfixer run script.py --no-explain  # traceback only, no AI
 ## Requirements
 
 - Python 3.10+
-- An Anthropic or Google Gemini API key
+- An Anthropic, Google Gemini, or OpenAI API key
 - VS Code (optional, for diff view)
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Bug reports and pull requests are welcome! Please open an issue at [github.com/ayushisahu222/py-fixer/issues](https://github.com/ayushisahu222/py-fixer/issues).
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License.
