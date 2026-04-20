@@ -3,6 +3,7 @@
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PyPI](https://img.shields.io/badge/pypi-1.0.2-blue)](https://pypi.org/project/py-fixer/)
 [![Python](https://img.shields.io/badge/python-3.10%2B-blue)](https://www.python.org/)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/py-fixer?period=total&units=ABBREVIATION&left_color=BLACK&right_color=BRIGHTGREEN&left_text=downloads)](https://pepy.tech/projects/py-fixer)
 
 A drop-in replacement for `python` that runs your scripts normally — but when an error occurs, uses AI to explain what went wrong and suggest a fix, right in your terminal.
 
