@@ -1,5 +1,3 @@
-"""Phase 2: auto-apply suggested fixes shown as a VS Code diff in the file."""
-
 import json
 import re
 import shutil
